@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>感染症クイズ</title>
+    <style>
+      /* 追加のCSS */
+      body {
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #72c2d9, #3a6073);
+        color: #ffffff;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        padding: 30px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+        color: #333;
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        margin: 15px 0;
+      }
+      button {
+        background: #ff7e5f;
+        color: #fff;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+      }
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>感染症クイズへようこそ</h1>
+      <p>
+        <button id="startButton">スタート</button>
+      </p>
+      <p>
+        感染症関連のクイズを作成しました。十分な検証ができてませんので、間違い等につきましてはご容赦ください。<br />今後も、真偽等について検証を行いつつ、問題数や解説を充実させる予定ですが、予告なく中止する場合もあります。
+      </p>
+      <footer>
+        尚、このプログラムのコードの一部は、ChatGPT4.0 を用いて作成しています。
+        <br />
+        version 1.001 2025-1-7
+      </footer>
+    </div>
+
+    <script>
+      // JavaScript追加
+      document
+        .getElementById("startButton")
+        .addEventListener("click", function () {
+          window.location.href = "quiz.html";
+        });
+    </script>
+  </body>
+</html>
