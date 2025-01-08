@@ -7,7 +7,7 @@ const questionPool = [{id:	1	,question:"	腸内細菌科細菌はどれか。2�
 {id:	7	,question:"	接触予防策が必要な病原体はどれか。2つ選べ。	",	level:	2	,choices:["	<i>Streptococcus pneumoniae</i>	","	<i>Bacillus cereus</i>	","	<i>Clostridioides difficile</i>	","	<i>Haemophilus influenzae</i>	","	methicillin-resistant<i>Staphylococcus aureus</i>	"],	correct:[			"c",		"e",	],explanation:"	解説なし	",	selectionCount:	2	},		
 {id:	8	,question:"	緑膿菌の特徴として正しいのはどれか。2つ選べ。	",	level:	2	,choices:["	栄養要求性が高く培養が難しい。	","	流しなどの水回りからよく分離される。	","	病原性が高く健常者にも容易に感染する。	","	あらゆるペニシリン系薬に自然耐性を示す。	","	人工呼吸器関連肺炎の主要な原因菌の一つである。	"],	correct:[		"b",			"e",	],explanation:"	解説なし	",	selectionCount:	2	},		
 {id:	9	,question:"	Therapeutic drug monitoring（TDM）が必要な抗菌薬はどれか。2つ選べ。	",	level:	3	,choices:["	アジスロマイシン	","	アモキシシリン	","	アルベカシン	","	バンコマイシン	","	レボフロキサシン	"],	correct:[			"c",	"d",		],explanation:"	解説なし	",	selectionCount:	2	},		
-{id:	10	,question:"	細胞壁の合成を阻害する抗菌薬はどれか。2つ選べ。	",	level:	2	,choices:["	アミノグリコシド系薬	","	グリコペプチド系薬	","	フルオロキノロン系薬	","	β-ラクタム系薬	","	マクロライド系薬	"],	correct:[	"a",	"b",				],explanation:"	解説なし	",	selectionCount:	2	},		
+{id:	10	,question:"	細胞壁の合成を阻害する抗菌薬はどれか。2つ選べ。	",	level:	2	,choices:["	アミノグリコシド系薬	","	グリコペプチド系薬	","	フルオロキノロン系薬	","	β-ラクタム系薬	","	マクロライド系薬	"],	correct:[	"b",	"d",				],explanation:"	解説なし	",	selectionCount:	2	},		
 {id:	11	,question:"	β溶血性を示す細菌はどれか。2つ選べ。	",	level:	3	,choices:["	<i>Streptococcus mitis</i>	","	<i>Streptococcus mutans</i>	","	<i>Streptococcus pyogenes</i>	","	<i>Streptococcus pneumoniae</i>	","	<i>Streptococcus dysgalactiae</i> subsp. <i>equisimilis</i>	"],	correct:[			"c",		"e",	],explanation:"	2024本試験-<strong>問題3</strong> 類題	",	selectionCount:	2	},		
 {id:	12	,question:"	コアグラーゼ陽性のブドウ球菌はどれか。2つ選べ。	",	level:	3	,choices:["	<i>Staphylococcus aureus</i>	","	<i>Staphylococcus intermedius</i>	","	<i>Staphylococcus epidermidis</i>	","	<i>Staphylococcus lugdunensis</i>	","	<i>Staphylococcus saprophyticus</i>	"],	correct:[	"a",	"b",				],explanation:"	2024本試験-<strong>問題4</strong> 類題	",	selectionCount:	2	},		
 {id:	13	,question:"	新生児の髄膜炎の原因菌として最も考慮すべき細菌はどれか。2つ選べ。	",	level:	3	,choices:["	<i>Escherichia coli</i>	","	<i>Staphylococcus aureus</i>	","	<i>Pseudomonas aeruginosa</i>	","	<i>Streptococcus agalactiae</i>	","	<i>Streptococcus pneumoniae</i>	"],	correct:[	"a",			"d",		],explanation:"	解説なし	",	selectionCount:	2	},		
@@ -287,43 +287,12 @@ const questionPool = [{id:	1	,question:"	腸内細菌科細菌はどれか。2�
 {id:	287	,question:"	なし	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	<span class='kakomon'>感統</span>2024本試験-<strong>問題57</strong>	",	selectionCount:	0	},	*/	/*
 {id:	288	,question:"	なし	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	<span class='kakomon'>感統</span>2024本試験-<strong>問題58</strong>	",	selectionCount:	0	},	*/	/*
 {id:	289	,question:"	なし	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	<span class='kakomon'>感統</span>2024本試験-<strong>問題59</strong>	",	selectionCount:	0	},	*/	/*
-{id:	290	,question:"	なし	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	<span class='kakomon'>感統</span>2024本試験-<strong>問題60</strong>	",	selectionCount:	0	},	*/	/*
-{id:	291	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	292	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	293	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	294	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	295	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/	/*
-{id:	0	,question:"	0	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	0	",	selectionCount:	0	},	*/
+{id:	290	,question:"	なし	",	level:	0	,choices:["	0	","	0	","	0	","	0	","	0	"],	correct:[						],explanation:"	<span class='kakomon'>感統</span>2024本試験-<strong>問題60</strong>	",	selectionCount:	0	},	*/
+{id:	291	,question:"	カタラーゼ陽性の細菌はどれか。2つ選べ。	",	level:	1	,choices:["	<em>Enterococcus faecium</em>	","	<em>Staphylococcus aureus</em>	","	<em>Staphylococcus epidermidis</em>	","	<em>Streptococcus agalactiae</em>	","	<em>Streptococcus pneumoniae</em>	"],	correct:[		"b",	"c",			],explanation:"	解説なし	",	selectionCount:	2	},		
+{id:	292	,question:"	グラム陰性菌はどれか。2つ選べ。	",	level:	1	,choices:["	<em>Acinetobacter baumannii</em>	","	<em>Enterococcus faecium</em>	","	<em>Escherichia coli</em>	","	<em>Listeria monocytogenes</em>	","	<em>Streptococcus pyogenes</em>	"],	correct:[	"a",		"c",			],explanation:"	解説なし	",	selectionCount:	2	},		
+{id:	293	,question:"	グラム陽性菌はどれか。3つ選べ。	",	level:	1	,choices:["	<em>Acinetobacter baumannii</em>	","	<em>Enterococcus faecium</em>	","	<em>Escherichia coli</em>	","	<em>Listeria monocytogenes</em>	","	<em>Pseudomonas aeruginosa</em>	"],	correct:[		"b",		"d",		],explanation:"	解説なし	",	selectionCount:	2	},		
+{id:	294	,question:"	グラム染色に用いる染色液はどれか。2つ選べ。	",	level:	1	,choices:["	エオジン	","	クリスタルバイオレット	","	サフラニン	","	石炭酸フクシン	","	メチレンブルー	"],	correct:[		"b",	"c",			],explanation:"	解説なし	",	selectionCount:	2	},		
+{id:	295	,question:"	<em>Mycoplasma pneumoniae</em>について正しいのはどれか。2つ選べ。	",	level:	1	,choices:["	運動性がない。	","	細胞壁をもたない。	","	光学顕微鏡では観察できない。	","	人工培地での培養ができない。	","	ワクチンにより感染を予防できる。	"],	correct:[		"b",	"c",			],explanation:"	解説なし	",	selectionCount:	2	},
 ];
 
 
