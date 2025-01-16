@@ -163,8 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return `<h4>問題${index + 1} (レベル${q.level}): ${isCorrect ? "正解" : "不正解"}</h4>
                     <p>${q.explanation}</p>`;
         });
-    
-        answersReview.innerHTML = results.join("");
+        const viewMessage ="<p>選択した問題の正解と解説です。選択肢などを確認する場合は問題ページに移動してください。</p><hr>";
+        answersReview.innerHTML = viewMessage+results.join("");
     
         // 履歴にスコアを追加
         const selectedLevel = levelSelect.value === "all" ? "全てのレベル" : `レベル${levelSelect.value}`;

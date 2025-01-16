@@ -1,0 +1,169 @@
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(to bottom, #e3f2fd, #90caf9);
+    margin: 0;
+    padding: 20px;
+    color: #0e0e0e;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: linear-gradient(to right, #1e88e5, #42a5f5);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(to bottom, #64b5f6, #42a5f5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background: #1e88e5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    background: #1565c0;
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Field */
+#filter-input {
+    width: calc(100% - 20px); /* Ensures the input stays within its container */
+    max-width: 100%; /* Prevents the input from overflowing */
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s, box-shadow 0.3s;
+    box-sizing: border-box; /* Includes padding in width calculation */
+}
+
+#filter-input:focus {
+    border-color: #1e88e5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #c4e4ff;
+}
+
+table th:first-child,
+table td:first-child {
+    border-left: none; /* Remove extra line on the first column */
+}
+
+table th:last-child,
+table td:last-child {
+    border-right: none; /* Remove extra line on the last column */
+}
+
+table th {
+    background-color: #90caf9;
+}
+/*
+table tr:nth-child(even) {
+    background-color: #eef4ff;
+}
+    */
+
+
+/* Vertical View Styles */
+#verticalview div {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#verticalview div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+ol {
+    list-style-type: lower-alpha;
+    margin-left: 20px;
+    padding-left: 20px;
+    color: #070707;
+}
+
+ol li {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+/* Version Info */
+#versionInfo {
+    background: linear-gradient(to right, #42a5f5, #64b5f6); /* Blue gradient */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+}
+
+#versionInfo p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #1e88e5; /* Solid blue */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+footer p {
+    margin: 0;
+    font-style: italic;
+}

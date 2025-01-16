@@ -239,3 +239,49 @@ span.kakomon {
     color: blue;
     font-weight: bold;
 }
+
+/* Common styles for all buttons */
+button {
+    background-color: #3f51b5; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove borders */
+    padding: 10px 20px; /* Padding for size */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Font size */
+    border-radius: 8px; /* Rounded corners */
+    margin: 5px; /* Add spacing between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+  }
+  
+  /* Specific style for tab buttons */
+  .tab-button {
+    font-weight: bold; /* Bold text for tab buttons */
+    background-color: #3f51b5; /* Blue background for tab buttons */
+    color: white;
+  }
+  
+  /* Hover effect for all buttons */
+  button:hover {
+    background-color:#303f9f; /* Darker green for general buttons */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  }
+  
+  /* Specific hover for tab buttons */
+  .tab-button:hover {
+    background-color: #303f9f; /* Darker blue for tab buttons */
+  }
+  
+  /* Active state for all buttons */
+  button:active {
+    background-color: #283593; /* Dark green on click for general buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+    transform: translateY(2px); /* Slight movement down on click */
+  }
+  
+  /* Active state for tab buttons */
+  .tab-button:active {
+    background-color: #283593; /* Darker blue on click for tab buttons */
+  }
+  
