@@ -80,7 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
           </td>
           <td>
             <strong>正解:</strong> ${question.correct.join(", ")}<br />
-            <strong>解説:</strong> ${question.explanation || "解説なし"}
+            <strong>解説:</strong> ${question.explanation || "なし"}<br />
+            <strong>キーワード:</strong> ${question.tag || "なし"}
           </td>
           <td>${question.level}</td>
         `;
@@ -111,7 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <ol>${question.choices.map((choice) => `<li>${choice}</li>`).join("")}</ol>
             <p><strong>レベル:</strong> ${question.level}</p>
             <p><strong>正解:</strong> ${question.correct.join(", ")}</p>
-            <p><strong>解説:</strong> ${question.explanation || "解説なし"}</p>
+            <p><strong>解説:</strong> ${question.explanation || "なし"}</p>
+            <p><strong>キーワード:</strong> ${question.tag || "なし"}</p>
           </div>
         `
         )

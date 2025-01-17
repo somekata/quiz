@@ -10,6 +10,7 @@
   <body>
     <div id="app">
       <header>
+        <h2 id="header-title">感染症クイズへようこそ！</h2>
         <nav>
           <button class="tab-button" data-tab="section1">問題ページ</button>
           <button class="tab-button" data-tab="section2">正解と解説</button>
@@ -22,7 +23,7 @@
       <main>
         <!-- セクション1: 問題ページ -->
         <section id="section1" class="tab-section active">
-          <h2 class="section-title">感染症クイズへようこそ！</h2>
+          <!--<h2 class="section-title">感染症クイズへようこそ！</h2>-->
           <div id="quiz-settings">
             <div class="form-group">
               <label for="keyword-input" class="form-label"
@@ -52,8 +53,13 @@
                 >問題数*を選択してください:</label
               >
               <select id="question-count" class="form-select">
+                <option value="1">1問</option>
+                <option value="3">3問</option>
+                <option value="5">5問</option>
                 <option value="10">10問</option>
                 <option value="20">20問</option>
+                <option value="30">30問</option>
+                <option value="50">50問</option>
                 <option value="all">全て</option>
               </select>
               <p>

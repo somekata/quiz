@@ -160,8 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 label.appendChild(markSpan); // 印を選択肢のラベルに追加
             });
     
-            return `<h4>問題${index + 1} (レベル${q.level}): ${isCorrect ? "正解" : "不正解"}</h4>
-                    <p>${q.explanation}</p>`;
+            return `<h4>問題${index + 1} ${q.question} (レベル${q.level})<br>判定: ${isCorrect ? "正解" : "不正解"}</h4>
+                    <p>解説: ${q.explanation}</p><p>キーワード: ${q.tag}`;
         });
         const viewMessage ="<p>選択した問題の正解と解説です。選択肢などを確認する場合は問題ページに移動してください。</p><hr>";
         answersReview.innerHTML = viewMessage+results.join("");
@@ -174,7 +174,11 @@ document.addEventListener("DOMContentLoaded", () => {
             correctCount,
             incorrectCount,
             levelStats,
-            score: totalScore
+            score: totalScore,
+            questionResults: selectedQuestions.map((q, index) => ({
+                id: q.id, // 問題ID
+                isCorrect: JSON.stringify(q.correct.sort()) === JSON.stringify(userAnswers[index]?.sort() || [])
+            }))
         });
     
         updateHistorySection();
@@ -198,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <th>正解数</th>
                 <th>不正解数</th>
                 <th>スコア</th>
-                <th>レベル別結果</th>
+                <th>問題結果 (ID:正誤)</th>
             </tr>
         `;
         const tableRows = history.map((entry, index) => `
@@ -209,9 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${entry.correctCount}</td>
                 <td>${entry.incorrectCount}</td>
                 <td>${entry.score}</td>
-                <td>${Object.entries(entry.levelStats).map(([level, count]) => `
-                    レベル${level}: ${count > 0 ? `${count}正解` : `${Math.abs(count)}不正解`}
-                `).join(", ")}</td>
+                <td>${entry.questionResults.map(r => `ID:${r.id}-${r.isCorrect ? '正解' : '不正解'}`).join(", ")}</td>
             </tr>
         `).join("");
         historySection.innerHTML = `
@@ -233,56 +235,66 @@ document.addEventListener("DOMContentLoaded", () => {
         link.click();
     });
 
-    // キーワードで問題をフィルタリング
-function filterQuestionsByKeyword(questions, keyword) {
-    if (!keyword || keyword.length < 2) {
-        return questions; // キーワードが未入力または2文字未満の場合はそのまま返す
+    // キーワードを問題文、選択肢、解説、タグでフィルタリング
+    function filterQuestionsByKeyword(questions, keyword) {
+        if (!keyword || keyword.length < 2) {
+            return questions; // キーワードが未入力または2文字未満の場合は全件返す
+        }
+
+        return questions.filter(q =>
+            q.question.includes(keyword) || // 問題文にキーワードが含まれる
+            q.choices.some(choice => choice.includes(keyword)) || // 選択肢にキーワードが含まれる
+            (q.explanation && q.explanation.includes(keyword)) || // 解説にキーワードが含まれる
+            q.tag.some(tag => tag.includes(keyword)) // タグにキーワードが含まれる
+        );
     }
 
-    return questions.filter(q =>
-        q.question.includes(keyword) || // 問題文にキーワードが含まれる
-        q.choices.some(choice => choice.includes(keyword)) || // 選択肢にキーワードが含まれる
-        (q.explanation && q.explanation.includes(keyword)) // 解説にキーワードが含まれる
-    );
-}
+    // Fisher-Yatesアルゴリズムによる配列シャッフル関数
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // 要素を交換
+        }
+        return array;
+    }
 
-
-    // クイズ開始
+    // クイズ開始時に問題をシャッフル
     startQuizButton.addEventListener("click", () => {
         const level = levelSelect.value; // レベル選択 ("all" または 1～5)
         const questionCount = questionCountSelect.value; // 問題数 ("all" または 10, 20)
         const keyword = document.getElementById("keyword-input").value.trim(); // キーワード入力
-    
+        
         // レベルでフィルタリング
         let filteredQuestions = filterQuestions(level);
-    
+        
         // キーワードでフィルタリング
         filteredQuestions = filterQuestionsByKeyword(filteredQuestions, keyword);
-    
+        
         // 問題が選ばれない場合のエラー処理
         if (filteredQuestions.length === 0) {
             alert("選択された条件に一致する問題がありません。");
             return;
         }
-    
+        
+        // 問題をシャッフル
+        filteredQuestions = shuffleArray(filteredQuestions);
+        
         // 問題数を適用
         if (questionCount !== "all") {
             filteredQuestions = filteredQuestions.slice(0, parseInt(questionCount, 10));
         }
-    
+        
         // 選択された問題を設定
-        selectedQuestions = filteredQuestions.sort(() => 0.5 - Math.random());
-    
+        selectedQuestions = filteredQuestions;
+        
         // 初期化
         userAnswers = {};
         totalScore = 0;
-    
+        
         // 設定部分を非表示
         quizSettings.classList.add("hidden");
-    
+        
         // 問題を表示
         displayQuestions(selectedQuestions, false);
-    });
-    
-    
+    });    
 });
