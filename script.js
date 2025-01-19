@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const questionStatsDiv = document.getElementById("question-stats");
 
+    // Add event listeners for new filters
+    const typeSelect = document.getElementById("type-select");
+    const languageSelect = document.getElementById("language-select");    
+
     // 問題数をレベル別に集計
     function calculateQuestionStats() {
         const stats = {}; // レベル別の問題数を記録
@@ -37,6 +41,54 @@ document.addEventListener("DOMContentLoaded", () => {
     // 初期表示
     displayQuestionStats();
 
+    // Function to calculate and display detailed stats for each level
+    function calculateDetailedQuestionStats() {
+        const detailedStats = {};
+
+        // Initialize stats structure
+        for (let level = 1; level <= 5; level++) {
+            detailedStats[level] = {
+                日本語: { 一般: 0, 症例: 0 },
+                英語: { 一般: 0, 症例: 0 }
+            };
+        }
+
+        // Populate stats by iterating over the question pool
+        questionPool.forEach(question => {
+            const level = question.level;
+            const language = question.language;
+            const type = question.type;
+
+            if (detailedStats[level] && detailedStats[level][language] && detailedStats[level][language][type] !== undefined) {
+                detailedStats[level][language][type]++;
+            }
+        });
+
+        return detailedStats;
+    }
+
+    // Function to display detailed stats in HTML
+    function displayDetailedQuestionStats() {
+        const stats = calculateDetailedQuestionStats();
+        const statsHTML = Object.entries(stats)
+            .map(([level, details]) => {
+                const japanese = details["日本語"];
+                const english = details["英語"];
+                return `
+                    <p>
+                        レベル${level}：${japanese.一般 + japanese.症例 + english.一般 + english.症例}問
+                        （日本語・一般${japanese.一般}, 日本語・症例${japanese.症例}, 
+                        英語・一般${english.一般}, 英語・症例${english.症例}）
+                    </p>
+                `;
+            })
+            .join("");
+        document.getElementById("question-stats").innerHTML = statsHTML;
+    }
+
+    // Initial display of detailed stats
+    displayDetailedQuestionStats();
+
     let selectedQuestions = [];
     let userAnswers = {};
     let totalScore = 0;
@@ -52,11 +104,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 問題選択と表示
-    function filterQuestions(level) {
-        if (level === "all") {
-            return questionPool.filter(q => q.level >= 1 && q.level <= 5); // レベル1～5の問題をすべて返す
+    // Update the filterQuestions function
+    function filterQuestions(level, type, language) {
+        let filteredQuestions = questionPool;
+    
+        // Filter by level
+        if (level !== "all") {
+        filteredQuestions = filteredQuestions.filter(q => q.level === parseInt(level, 10));
         }
-        return questionPool.filter(q => q.level === parseInt(level, 10)); // 選択されたレベルのみ返す
+    
+        // Filter by type
+        if (type !== "all") {
+        filteredQuestions = filteredQuestions.filter(q => q.type === type);
+        }
+    
+        // Filter by language
+        if (language !== "all") {
+        filteredQuestions = filteredQuestions.filter(q => q.language === language);
+        }
+    
+        return filteredQuestions;
     }
     
     function displayQuestions(questions, isLocked = false) {
@@ -161,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     
             return `<h4>問題${index + 1} ${q.question} (レベル${q.level})<br>判定: ${isCorrect ? "正解" : "不正解"}</h4>
-                    <p>解説: ${q.explanation}</p><p>キーワード: ${q.tag}`;
+                    <p><b>解説</b>: ${q.explanation}</p><p><b>キーワード</b>: ${q.tag}</p><p><b>言語</b>: ${q.language}, <b>タイプ</b>: ${q.type}, <b>選択肢</b>: ${q.selectionCount}択</p>`;
         });
         const viewMessage ="<p>選択した問題の正解と解説です。選択肢などを確認する場合は問題ページに移動してください。</p><hr>";
         answersReview.innerHTML = viewMessage+results.join("");
@@ -259,42 +326,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // クイズ開始時に問題をシャッフル
-    startQuizButton.addEventListener("click", () => {
-        const level = levelSelect.value; // レベル選択 ("all" または 1～5)
-        const questionCount = questionCountSelect.value; // 問題数 ("all" または 10, 20)
-        const keyword = document.getElementById("keyword-input").value.trim(); // キーワード入力
-        
-        // レベルでフィルタリング
-        let filteredQuestions = filterQuestions(level);
-        
-        // キーワードでフィルタリング
-        filteredQuestions = filterQuestionsByKeyword(filteredQuestions, keyword);
-        
-        // 問題が選ばれない場合のエラー処理
-        if (filteredQuestions.length === 0) {
-            alert("選択された条件に一致する問題がありません。");
-            return;
-        }
-        
-        // 問題をシャッフル
-        filteredQuestions = shuffleArray(filteredQuestions);
-        
-        // 問題数を適用
-        if (questionCount !== "all") {
-            filteredQuestions = filteredQuestions.slice(0, parseInt(questionCount, 10));
-        }
-        
-        // 選択された問題を設定
-        selectedQuestions = filteredQuestions;
-        
-        // 初期化
-        userAnswers = {};
-        totalScore = 0;
-        
-        // 設定部分を非表示
-        quizSettings.classList.add("hidden");
-        
-        // 問題を表示
-        displayQuestions(selectedQuestions, false);
-    });    
+    // Update the startQuizButton event listener
+startQuizButton.addEventListener("click", () => {
+    const level = levelSelect.value;
+    const type = typeSelect.value;
+    const language = languageSelect.value;
+    const keyword = document.getElementById("keyword-input").value.trim();
+  
+    // Apply filters
+    let filteredQuestions = filterQuestions(level, type, language);
+  
+    // Filter by keyword
+    filteredQuestions = filterQuestionsByKeyword(filteredQuestions, keyword);
+  
+    // Handle case where no questions are found
+    if (filteredQuestions.length === 0) {
+      alert("選択された条件に一致する問題が見つかりませんでした。");
+      return;
+    }
+  
+    // Shuffle and display questions
+    selectedQuestions = shuffleArray(filteredQuestions).slice(0, parseInt(questionCountSelect.value, 10) || filteredQuestions.length);
+    displayQuestions(selectedQuestions);
+  }); 
 });
