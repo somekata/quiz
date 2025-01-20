@@ -240,23 +240,26 @@ document.addEventListener("DOMContentLoaded", () => {
             questionCount: selectedQuestions.length,
             correctCount,
             incorrectCount,
-            levelStats,
             score: totalScore,
             questionResults: selectedQuestions.map((q, index) => ({
                 id: q.id, // 問題ID
                 isCorrect: JSON.stringify(q.correct.sort()) === JSON.stringify(userAnswers[index]?.sort() || [])
-            }))
+            })),
+            timestamp: Date.now() // 現在の時刻を追加
         });
     
+        // 履歴セクションの更新
         updateHistorySection();
     
         document.querySelector("[data-tab='section2']").click();
         downloadCertificateButton.style.display = "block";
-    
+
         resetButton.style.display = "none";
         submitButton.style.display = "none";
-    
+
         quizSettings.classList.remove("hidden");
+        // Reset the form
+        resetQuizForm();
     });    
 
     // 履歴更新（Table形式で表示）
@@ -265,24 +268,26 @@ document.addEventListener("DOMContentLoaded", () => {
             <tr>
                 <th>履歴</th>
                 <th>難易度</th>
-                <th>問題数</th>
-                <th>正解数</th>
-                <th>不正解数</th>
-                <th>スコア</th>
+                <th>正解数/問題数</th>
+                <th>スコア/満点</th>
                 <th>問題結果 (ID:正誤)</th>
+                <th>日付時間</th>
             </tr>
         `;
-        const tableRows = history.map((entry, index) => `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${entry.level}</td>
-                <td>${entry.questionCount}</td>
-                <td>${entry.correctCount}</td>
-                <td>${entry.incorrectCount}</td>
-                <td>${entry.score}</td>
-                <td>${entry.questionResults.map(r => `ID:${r.id}-${r.isCorrect ? '正解' : '不正解'}`).join(", ")}</td>
-            </tr>
-        `).join("");
+        const tableRows = history.map((entry, index) => {
+            const fullScore = entry.questionCount * 10; // 満点計算
+            const dateTime = new Date(entry.timestamp).toLocaleString(); // 日付時間をフォーマット
+            return `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${entry.level}</td>
+                    <td>${entry.correctCount}/${entry.questionCount}</td>
+                    <td>${entry.score}/${fullScore}</td>
+                    <td>${entry.questionResults.map(r => `ID:${r.id}-${r.isCorrect ? '正解' : '不正解'}`).join(", ")}</td>
+                    <td>${dateTime}</td>
+                </tr>
+            `;
+        }).join("");
         historySection.innerHTML = `
             <table>
                 ${tableHeaders}
@@ -292,15 +297,126 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
 
-    // 証明書ダウンロード
+    // 証明書ダウンロード（PNG形式）
     downloadCertificateButton.addEventListener("click", () => {
-        const certificateText = `クイズ証明書\nスコア: ${totalScore} / ${selectedQuestions.length * 10}`;
-        const blob = new Blob([certificateText], { type: "text/plain" });
+        // 氏名をプロンプトで取得
+        let participantName = prompt("受験者氏名を入力してください（任意）:");
+        if (!participantName || participantName.trim() === "") {
+            participantName = "受験者"; // 空の場合のデフォルト
+        }
+    
+        // Canvasを作成
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+    
+        // キャンバスサイズ設定
+        canvas.width = 1000;
+        canvas.height = 1400;
+    
+        // 背景色
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    
+        // 赤線 (タイトル上)
+        context.globalAlpha = 0.5; // 50%の透明度
+        context.strokeStyle = "#d9534f"; // 赤
+        context.lineWidth = 10;
+        context.beginPath();
+        context.moveTo(100, 60);
+        context.lineTo(900, 60);
+        context.stroke();
+
+        // 青線 (タイトル下)
+        context.strokeStyle = "#0275d8"; // 青
+        context.lineWidth = 10;
+        context.beginPath();
+        context.moveTo(100, 150);
+        context.lineTo(900, 150);
+        context.stroke();
+
+        // 透明度を元に戻す
+        context.globalAlpha = 1.0;
+        // タイトル
+        context.fillStyle = "#000"; // 黒
+        context.font = "48px Georgia, serif";
+        context.textAlign = "center";
+        context.fillText("感染症クイズ証明書", canvas.width / 2, 120);
+      
+        // 祝福メッセージ
+        context.fillStyle = "#555"; // グレー
+        context.font = "24px Arial, sans-serif";
+        context.fillText(`おめでとうございます！`, canvas.width / 2, 200);
+        context.fillText(`${participantName} 様がクイズに挑戦され、以下の成績を修めました。`, canvas.width / 2, 240);
+    
+        // 履歴情報を描画
+        context.textAlign = "left";
+        context.font = "20px Arial, sans-serif";
+        context.fillStyle = "#000"; // 黒
+        let offsetY = 300;
+
+        history.forEach((entry, index) => {
+            const fullScore = entry.questionCount * 10; // 満点
+            const dateTime = new Date(entry.timestamp).toLocaleString(); // 日付時間をフォーマット
+
+            // 履歴番号と難易度
+            context.fillText(`履歴${index + 1}`, 70, offsetY);
+            context.fillText(`難易度: ${entry.level}`, 150, offsetY);
+
+            // 正解数/問題数
+            context.fillText(`正解数/問題数: ${entry.correctCount}/${entry.questionCount}`, 310, offsetY);
+
+            // スコア/満点 (間隔を調整)
+            context.fillText(`スコア: ${entry.score}/${fullScore}`, 510, offsetY);
+
+            // 日付
+            context.fillText(`日付: ${dateTime}`, 660, offsetY);
+
+            offsetY += 40; // 行間
+        });
+    
+        // 赤線 (フッター上)
+        offsetY += 50;
+        context.globalAlpha = 0.5; // 50%の透明度
+        context.strokeStyle = "#d9534f"; // 赤
+        context.lineWidth = 5;
+        context.beginPath();
+        context.moveTo(100, canvas.height - 100);
+        context.lineTo(900, canvas.height - 100);
+        context.stroke();
+    
+        // 青線 (フッター下)
+        offsetY += 30;
+        context.strokeStyle = "#0275d8"; // 青
+        context.lineWidth = 5;
+        context.beginPath();
+        context.moveTo(100, canvas.height - 30);
+        context.lineTo(900, canvas.height - 30);
+        context.stroke();
+
+        // 透明度を元に戻す
+        context.globalAlpha = 1.0;
+        // 証明者情報
+        offsetY += 30;
+        context.font = "22px Georgia, serif";
+        context.fillStyle = "#555"; // グレー
+        context.fillText(`発行者: 細菌楽教室 染方史郎`, 100, offsetY);
+        offsetY += 30;
+        context.fillText(`証明書発行日: ${new Date().toLocaleDateString()}`, 100, offsetY);
+
+        // フッター
+        context.textAlign = "center";
+        context.font = "16px Arial, sans-serif";
+        context.fillStyle = "#555"; // グレー
+        context.fillText("© 2025 細菌楽教室 All Rights Reserved", canvas.width / 2, canvas.height - 50);
+    
+        // ダウンロードリンクを作成してPNG形式で保存
         const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "certificate.txt";
+        link.download = "certificate.png";
+        link.href = canvas.toDataURL("image/png");
         link.click();
     });
+    
+        
 
     // キーワードを問題文、選択肢、解説、タグでフィルタリング
     function filterQuestionsByKeyword(questions, keyword) {
@@ -325,13 +441,39 @@ document.addEventListener("DOMContentLoaded", () => {
         return array;
     }
 
+    // Function to reset form inputs
+    function resetQuizForm() {
+        // フォームの入力値をリセット
+        document.getElementById("keyword-input").value = "";
+        levelSelect.selectedIndex = 0;
+        typeSelect.selectedIndex = 0;
+        languageSelect.selectedIndex = 0;
+        questionCountSelect.selectedIndex = 0;
+    
+        // Deselect all radio and checkbox inputs
+        const inputs = document.querySelectorAll("#quiz-list input[type='radio'], #quiz-list input[type='checkbox']");
+        inputs.forEach(input => {
+            input.checked = false;
+        });
+    
+        // Reset user answers and selected questions
+        userAnswers = {};
+        selectedQuestions = [];
+    }
+    
+
     // クイズ開始時に問題をシャッフル
     // Update the startQuizButton event listener
-startQuizButton.addEventListener("click", () => {
-    const level = levelSelect.value;
-    const type = typeSelect.value;
-    const language = languageSelect.value;
-    const keyword = document.getElementById("keyword-input").value.trim();
+    startQuizButton.addEventListener("click", () => {
+
+
+        // Clear the quiz list
+        quizList.innerHTML = "";
+                
+        const level = levelSelect.value;
+        const type = typeSelect.value;
+        const language = languageSelect.value;
+        const keyword = document.getElementById("keyword-input").value.trim();
   
     // Apply filters
     let filteredQuestions = filterQuestions(level, type, language);
