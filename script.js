@@ -316,7 +316,76 @@ document.addEventListener("DOMContentLoaded", () => {
         // 背景色
         context.fillStyle = "#ffffff";
         context.fillRect(0, 0, canvas.width, canvas.height);
-    
+
+        // ランダムな水玉の描画
+        const totalDots = 50; // 水玉の数
+        for (let i = 0; i < totalDots; i++) {
+            // ランダムな位置とサイズ
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * (40 - 10) + 10; // 半径10mm〜40mm
+
+            // ランダムな透明度（淡さ）
+            const alpha = Math.random() * (0.04 - 0.01) + 0.01; // 0.01～0.04
+
+            // ランダムに赤または青を選択
+            const color = Math.random() < 0.5
+                ? `rgba(255, 0, 0, ${alpha})` // 淡い赤
+                : `rgba(0, 0, 255, ${alpha})`; // 淡い青
+
+            // 水玉を描画
+            context.beginPath();
+            context.arc(x, y, radius, 0, Math.PI * 2);
+            context.fillStyle = color;
+            context.fill();
+        }
+
+
+        // 文字列の描画設定
+        const rows = 1; // 行数
+        const cols = 1; // 列数
+        const marginX = 400; // 水平方向の間隔
+        const marginY = 200; // 垂直方向の間隔
+        const startX = 100; // 描画開始位置（X軸）
+        const startY = 1200; // 描画開始位置（Y軸）
+
+        // 文字とその色を定義
+        const textParts = [
+            { text: "Shiro", color: "rgba(255, 0, 0, 0.05)" }, // 赤の淡い色
+            { text: " ", color: "rgba(0, 0, 0, 0.00)" },       // 空白
+            { text: "Somekata", color: "rgba(0, 0, 255, 0.05)" },  // 青の淡い色
+            { text: " Certificate", color: "rgba(0, 0, 0, 0.05)" } // 黒の淡い色
+        ];
+
+        // 文字の描画ループ
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const x = startX + col * marginX; // X位置
+                const y = startY + row * marginY; // Y位置
+
+                // キャンバス内に収まる場合のみ描画
+                if (x + marginX <= canvas.width && y + marginY <= canvas.height) {
+                    context.save(); // 状態を保存
+
+                    // 原点を移動してから回転
+                    context.translate(x, y);
+                    context.rotate((-45 * Math.PI) / 180); // 45度右上がりに回転
+
+                    // 各文字を描画
+                    let currentX = 0; // 回転した座標系でのX位置
+                    for (const part of textParts) {
+                        context.font = "100px Arial"; // フォント設定
+                        context.fillStyle = part.color; // 色設定
+                        context.fillText(part.text, currentX, 0); // 回転後の座標系で描画
+                        currentX += context.measureText(part.text).width; // 次の文字の位置を計算
+                    }
+
+                    context.restore(); // 状態を元に戻す
+                }
+            }
+        }
+
+        
         // 赤線 (タイトル上)
         context.globalAlpha = 0.5; // 50%の透明度
         context.strokeStyle = "#d9534f"; // 赤
